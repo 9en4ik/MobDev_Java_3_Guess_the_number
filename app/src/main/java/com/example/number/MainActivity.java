@@ -7,11 +7,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.Random;
+
 public class MainActivity extends AppCompatActivity {
 
     TextView tvInfo;
     EditText etInput;
     Button bControl;
+    Random rand = new Random();
+    int x = rand.nextInt(101);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,9 +28,29 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void onClick(View view) {
-        int value = Integer.parseInt(etInput.getText().toString());
-        tvInfo.setText(getResources().getString(R.string.ahead));
+    public void onClick(View view)
+    {
+        try
+        {
+            int value = Integer.parseInt(etInput.getText().toString());
+            if (value == x)
+            {
+                tvInfo.setText(getResources().getString(R.string.hit));
+            }
+            else if (value < x)
+            {
+                tvInfo.setText(getResources().getString(R.string.behind));
+            }
+            else if (value > x)
+            {
+                tvInfo.setText(getResources().getString(R.string.ahead));
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.print("Couldn't parse input, please try again");
+        }
+
     }
 }
 
